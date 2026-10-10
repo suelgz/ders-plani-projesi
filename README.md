@@ -15,7 +15,7 @@ HTML, CSS, JavaScript, jQuery ve LocalStorage kullandım.
 `index.html` dosyasını tarayıcıda açmak yeterli. jQuery CDN üzerinden yüklendiği için internet bağlantısı gerekir.
 
 ## Canlı site
-Vercel üzerinde yayınlanacaktır.
+https://ders-plani-projesi.vercel.app adresinde yayınlandı.
 
 ## Ekran görüntüsü
 Projenin masaüstü ve mobil ekran görüntüleri teslim dosyasında yer alır.
