@@ -1,0 +1,46 @@
+name: Generate JavaScript Project Screenshots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/screenshots.yml'
+      - 'scripts/capture-screenshots.cjs'
+      - 'index.html'
+      - 'src/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser tooling
+        run: |
+          npm install --no-save playwright@1.56.1 jquery@3.7.1
+          npx playwright install --with-deps chromium
+      - name: Start actual project locally
+        run: |
+          python3 -m http.server 8123 >/tmp/ders-plani-http.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8123/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          exit 1
+      - name: Capture four real project views
+        run: node scripts/capture-screenshots.cjs
+      - name: Upload screenshots to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add screenshots/*.png
+          if ! git diff --cached --quiet; then
+            git commit -m "Add real desktop, task add, filter and mobile screenshots"
+            git push
+          fi
