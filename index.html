@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f7fb">
+  <meta name="description" content="Derslerini ve yapılacak işlerini düzenlemek için küçük bir planlayıcı.">
+  <title>Ders Planım</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-icon">✳</span> ders planım<span class="brand-period">.</span></div>
+      <span class="topbar-note">Küçük adımlar, düzenli bir hafta.</span>
+    </header>
+
+    <main class="main-content">
+      <div class="page-intro">
+        <span class="eyebrow">KİŞİSEL ÇALIŞMA ALANIN</span>
+        <h1>Bugün neler yapacağız?</h1>
+        <p>Derslerini ve yapılacak işlerini tek bir yerde tut.</p>
+      </div>
+
+      <div class="summary" aria-label="Görev özeti">
+        <div class="summary-box"><span>Toplam görev</span><strong id="total-count">0</strong></div>
+        <div class="summary-box"><span>Bekleyen</span><strong id="pending-count">0</strong></div>
+        <div class="summary-box"><span>Tamamlanan</span><strong id="complete-count">0</strong></div>
+      </div>
+
+      <div class="content-grid">
+        <section class="panel form-panel" aria-labelledby="form-title">
+          <div class="section-heading">
+            <div><span class="eyebrow">GÖREV FORMU</span><h2 id="form-title">Yeni görev ekle</h2></div>
+          </div>
+          <form id="task-form">
+            <label for="task-title">Yapılacak iş <span class="required">*</span></label>
+            <input id="task-title" name="title" placeholder="Örn. Sunuma hazırlan" maxlength="100" required>
+
+            <label for="task-course">Ders</label>
+            <input id="task-course" name="course" placeholder="Örn. Veritabanı" maxlength="50">
+
+            <div class="form-row">
+              <div><label for="task-date">Bitiş tarihi</label><input id="task-date" type="date" name="date"></div>
+              <div><label for="task-priority">Öncelik</label>
+                <select id="task-priority" name="priority">
+                  <option>Düşük</option><option selected>Orta</option><option>Yüksek</option>
+                </select>
+              </div>
+            </div>
+            <button class="primary-btn" type="submit" id="save-button"><span aria-hidden="true">+</span><span id="save-text">Görev ekle</span></button>
+            <button class="cancel-btn" type="button" id="cancel-button" hidden>Vazgeç</button>
+          </form>
+          <p class="form-note">Bilgilerin bu tarayıcıda saklanır.</p>
+        </section>
+
+        <section class="panel list-panel" aria-labelledby="list-title">
+          <div class="section-heading list-heading"><div><span class="eyebrow">YAPILACAKLAR</span><h2 id="list-title">Görev listem <span class="count-pill" id="list-count">0</span></h2></div></div>
+          <div class="filter-bar" role="group" aria-label="Görevleri filtrele">
+            <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">Tümü</button>
+            <button class="filter-btn" type="button" data-filter="pending" aria-pressed="false">Bekleyen</button>
+            <button class="filter-btn" type="button" data-filter="complete" aria-pressed="false">Tamamlanan</button>
+          </div>
+          <div id="task-list" class="task-list" aria-live="polite"></div>
+        </section>
+      </div>
+    </main>
+    <footer>Web Geliştirme • JavaScript Projesi</footer>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="src/js/storage.js"></script>
+  <script src="src/js/taskCard.js"></script>
+  <script src="src/js/app.js"></script>
+</body>
+</html>
